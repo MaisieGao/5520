@@ -31,12 +31,18 @@ export default function App() {
     setGameFinish(true); 
     setUserNumber(null)
   }
-  
+  const generateRandomBetween = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    const rndNum = Math.floor(Math.random() * (max - min)) + min;
+    return rndNum
+  }
+  const computerNumber = generateRandomBetween(1020,1029);
   let content = <StartGameScreen onStartGame={startGameHandler} />
 
     
     if (userNumber && !gameOver) { 
-      content = <GameScreen pickedNumber={userNumber} gameIsOver={gameOverHandler} gameHadWin={gameWin} onRestart={restartGame}/>;
+      content = <GameScreen computerNumber={computerNumber}pickedNumber={userNumber} gameIsOver={gameOverHandler} gameHadWin={gameWin} onRestart={restartGame}/>;
     } 
     if (gameOver && !restart) {
       content = <GameOverScreen pickedNumber={userNumber} onRestart={restartGame} gamewin={win} gameHasFinish={gameFinishHandle}/>;

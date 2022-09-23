@@ -17,26 +17,15 @@ import {
 
 const GameScreen = props => {
     const [direction, setDirection] = useState("")
-    const [computerNumber, setComputerNumber] = useState("")
-    
-    const generateRandomBetween = useCallback((min, max) => {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      const rndNum = Math.floor(Math.random() * (max - min)) + min;
-      setComputerNumber(rndNum)
-    },[]);
-    useEffect(() => {
-      generateRandomBetween(1024,1029);
-    }, []);
-    console.log("generated number",computerNumber)
+    console.log("generated number",props.computerNumber)
     let guess = props.pickedNumber;
     console.log('guessed number',guess)
     const getDirection = useCallback(() =>{
-        if (computerNumber < guess) {
+        if (props.computerNumber < guess) {
             setDirection("lower")
             console.log('guessed number2',guess)
-            console.log("generated number2",computerNumber)
-        } else if (computerNumber > guess){
+            console.log("generated number2",props.computerNumber)
+        } else if (props.computerNumber > guess){
             setDirection("higher")
         } },[]);
         useEffect(() => {
@@ -45,7 +34,7 @@ const GameScreen = props => {
 
   return (
     <View style={styles.container}>
-        {props.pickedNumber != computerNumber ? (
+        {props.pickedNumber != props.computerNumber ? (
         <>
         <View style={styles.card}>
           <View>
