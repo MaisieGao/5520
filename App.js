@@ -1,67 +1,78 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import StartGameScreen from './components/StartGameScreen';
-import GameScreen from './components/GameScreen';
-import GameOverScreen from './components/GameOverScreen';
+import ChooseNumberPage from './components/ChooseNumberPage';
+import CompareNumberPage from './components/CompareNumberPage';
+import GameOverPage from './components/GameOverPage';
 export default function App() { 
-  const [userNumber, setUserNumber] = useState('');
+  const generateRandomNumber = (minimum, maximum) => {
+    min = Math.ceil(minimum);
+    max = Math.floor(maximum);
+    const number = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+    return number
+  }
+  const randomNumber = generateRandomNumber(1020,1029);
+  const [enteredNumber, setEnteredNumber] = useState('');
   // const [dataLoaded, setDataLoaded] = useState(false);
   const [gameFinish, setGameFinish] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [restart, setRestart] = useState(false);
+  const [reGuess, setReGuess] = useState(false);
   const [win, setWin] = useState(false);
-
+  const [guessNumber, setGuessNumber] = useState(randomNumber);
    const restartGame = () => {
-    setUserNumber(null);
+    // setUserNumber("");
     setRestart(true)
+    setGameOver(false)
+    setWin(false)
+    setGuessNumber(generateRandomNumber(1020,1029))
   }
-
-  const startGameHandler = (selectedNumber) => {
-    setUserNumber(selectedNumber);
+  
+  const startGameFunction = (input) => {
+    setEnteredNumber(input);
+    setRestart(false)
+    setReGuess(false)
   }
-  const gameOverHandler = () =>{
+  const gameOverFunction = () =>{
     setGameOver(true); 
   }
-  const gameWin = () =>{
+  const gameWinFunction = () =>{
     setWin(true);
     setGameOver(true);
   }
-  const gameFinishHandle = () =>{
+  const gameFinishFunction = () =>{
     setGameFinish(true); 
-    setUserNumber(null)
+    setEnteredNumber(null)
   }
-  const generateRandomBetween = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    const rndNum = Math.floor(Math.random() * (max - min)) + min;
-    return rndNum
+  
+  const reGuessNumberFunction = () => {
+    // setUserNumber("");
+    setReGuess(true)
+    setGameOver(false)
+    setWin(false)
   }
-  const computerNumber = generateRandomBetween(1020,1029);
-  let content = <StartGameScreen onStartGame={startGameHandler} />
-
-    
-    if (userNumber && !gameOver) { 
-      content = <GameScreen computerNumber={computerNumber}pickedNumber={userNumber} gameIsOver={gameOverHandler} gameHadWin={gameWin} onRestart={restartGame}/>;
-    } 
-    if (gameOver && !restart) {
-      content = <GameOverScreen pickedNumber={userNumber} onRestart={restartGame} gamewin={win} gameHasFinish={gameFinishHandle}/>;
-    } 
-    if (restart){
-      content = <StartGameScreen onStartGame={startGameHandler} />;
-    } 
+  let screen = <ChooseNumberPage startGame={startGameFunction} />   
+  if (enteredNumber && !gameOver) {
+    screen = <CompareNumberPage guessNumber={guessNumber} pickedNumber={enteredNumber} gameIsOver={gameOverFunction} gameHadWin={gameWinFunction} onRestart={reGuessNumberFunction}/>;
+  } 
+  if (gameOver && !restart) {
+    screen = <GameOverPage pickedNumber={enteredNumber} restart={restartGame} win={win} gameHasFinish={gameFinishFunction}/>;
+  } 
+  if (restart || reGuess){
+    screen = <ChooseNumberPage startGame={startGameFunction} />;
+  }
   
   return (
-    <View style={styles.screen}>
+    <View style={styles.container}>
       <LinearGradient colors={['#F1BCD3', '#F56EA7', '#F10E6E']} style={styles.linearGradient}>
-        {content}
+        {screen}
       </LinearGradient>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
+  container: {
     flex: 1
   },
   linearGradient: {
