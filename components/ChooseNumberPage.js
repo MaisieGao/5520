@@ -11,17 +11,17 @@ import {
 } from "react-native";
 
 const ChooseNumberPage = (props) => {
-  const [input, setInput] = useState();
+  const [inputNumber, setInputNumber] = useState();
 
-  const handleChangeFunction = (input) => {
-    setInput(input);
+  const handleChangeFunction = (text) => {
+    setInputNumber(text);
   };
   const resetvalueFunction = () => {
-    setInput("");
+    setInputNumber("");
   };
   const InputNumberFunction = () => {
     // isNaN -> not a number
-    if (isNaN(input) || input < 1020 || input > 1029) {
+    if (isNaN(inputNumber) || inputNumber < 1020 || inputNumber > 1029) {
       Alert.alert(
         "Invalid number!",
         "Number has to be a number between 1020 and 1029",
@@ -29,7 +29,7 @@ const ChooseNumberPage = (props) => {
       );
       return;
     }
-    props.startGame(input);
+    props.startGame(inputNumber);
     // hide keyboard
     Keyboard.dismiss();
   };
@@ -39,12 +39,12 @@ const ChooseNumberPage = (props) => {
       <View style={styles.card}>
         <Text style={styles.topic}>Enter a Number</Text>
         <TextInput
-          style={styles.input}
+          style={styles.textInput}
           blurOnSubmit
           autoCapitalize="none"
           keyboardType="phone-pad"
           onChangeText={handleChangeFunction}
-          value={input}
+          value={inputNumber}
         />
         <View style={styles.buttonBox}>
           <View style={styles.button}>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width / 4,
     maxWidth: 80,
   },
-  input: {
+  textInput: {
     width: 50,
     textAlign: "center",
     borderBottomColor: "yellow", // Add this to specify bottom border color
