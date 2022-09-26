@@ -5,7 +5,7 @@ export default function Header({appName}) {
     
   return (
     <View>
-      <Text>Open up App.js to start working on {appName}! </Text>
+      <Text>Welcome to {appName}! </Text>
     </View>
   )
 }
