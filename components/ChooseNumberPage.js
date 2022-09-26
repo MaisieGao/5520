@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: Dimensions.get("window").width / 4,
-    maxWidth: 80,
+    maxWidth: 90,
   },
   textInput: {
     width: 50,
