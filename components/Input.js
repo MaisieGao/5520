@@ -25,13 +25,16 @@ export default function Input({onAdd, modal, onCancel}){
                     onPress={()=>{
                         onAdd(text)
                         setText('')
-                    }}></Button>
+                        
+                    }}
+                    disabled={text.length? false: true}
+                    ></Button>
                     </View>
                     <View style={styles.button}>
                 <Button
                     title='Cancel'
                     onPress={onCancel}>
-
+                    
                     </Button>
                     </View>
                     </View>
