@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
-
+import Color from "../Color";
 const CompareNumberPage = (props) => {
   const [direction, setDirection] = useState("");
   let guess = props.pickedNumber;
@@ -29,14 +29,14 @@ const CompareNumberPage = (props) => {
             </View>
             <View style={styles.button}>
               <Button
-                color="#8a2be2"
+                color={Color.purple}
                 title="I am done!"
                 onPress={props.gameIsOver}
               />
             </View>
             <View style={styles.button}>
               <Button
-                color="#ff1493"
+                color={Color.pink}
                 title="Let Me Guess Again"
                 onPress={props.onRestart}
               />
@@ -50,7 +50,7 @@ const CompareNumberPage = (props) => {
           </View>
           <View style={styles.button}>
             <Button
-              color="#ff1493"
+              color={Color.pink}
               title="Thank you!"
               onPress={props.gameHadWin}
             />
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     width: "80%",
     maxWidth: "95%",
     minWidth: 300,
-    height: 290,
+    height: 280,
     alignItems: "center",
     marginTop: 30,
     backgroundColor: "black",
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     width: "80%",
     maxWidth: "95%",
     minWidth: 300,
-    height: 150,
+    height: 130,
     alignItems: "center",
     marginTop: 30,
     backgroundColor: "black",
@@ -104,14 +104,14 @@ const styles = StyleSheet.create({
   },
   text1: {
     color: "yellow",
-    fontSize: 22,
+    fontSize: 23,
     justifyContent: "center",
     marginTop: 20,
     textAlign: "center",
   },
   text2: {
     color: "yellow",
-    fontSize: 22,
+    fontSize: 23,
     textAlign: "center",
   },
 });

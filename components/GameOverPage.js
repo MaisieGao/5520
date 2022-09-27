@@ -1,9 +1,10 @@
 import React from "react";
+import Color from "../Color";
 import { View, Text, StyleSheet, Image, Button } from "react-native";
 const GameOverPage = (props) => {
   let win = props.win;
   return (
-    <View style={styles.container}>
+    <View style={styles.container} >
       <Text style={styles.title}>Game is Over</Text>
       <View style={styles.card}>
         <Text style={styles.topic}>Here is your picture</Text>
@@ -22,8 +23,7 @@ const GameOverPage = (props) => {
           />
         )}
         <Button
-          style={styles.button}
-          color="#ff1493"
+          color={Color.pink}
           title="Start Again"
           onPress={props.restart}
         />
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 23,
+    fontSize: 25,
     marginVertical: 10,
     height: 55,
     margin: 12,
@@ -50,14 +50,14 @@ const styles = StyleSheet.create({
   },
   topic: {
     marginTop: 20,
-    fontSize: 20,
+    fontSize: 23,
     color: "yellow",
   },
   card: {
     width: "80%",
     maxWidth: "95%",
     minWidth: 300,
-    height: 370,
+    height: 360,
     alignItems: "center",
     marginTop: 30,
     backgroundColor: "black",

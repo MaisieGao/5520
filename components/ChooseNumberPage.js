@@ -9,7 +9,7 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-
+import Color from "../Color";
 const ChooseNumberPage = (props) => {
   const [inputNumber, setInputNumber] = useState();
 
@@ -49,14 +49,14 @@ const ChooseNumberPage = (props) => {
         <View style={styles.buttonBox}>
           <View style={styles.button}>
             <Button
-              color="#8a2be2"
+              color={Color.purple}
               title="Reset"
               onPress={resetvalueFunction}
             />
           </View>
           <View style={styles.button}>
             <Button
-              color="#ff1493"
+              color={Color.pink}
               title="Confirm"
               onPress={InputNumberFunction}
             />
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 23,
+    fontSize: 25,
     marginTop: 65,
     marginVertical: 10,
     height: 55,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   topic: {
     marginTop: 20,
-    fontSize: 20,
+    fontSize: 23,
     color: "yellow",
   },
   button: {
@@ -98,8 +98,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderBottomColor: "yellow", // Add this to specify bottom border color
     borderBottomWidth: 1,
-    marginTop: 20,
+    marginTop: 25,
     color: "yellow",
+    fontSize:20
   },
   summaryContainer: {
     marginTop: 20,
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
     width: "80%",
     maxWidth: "95%",
     minWidth: 300,
-    height: 200,
+    height: 190,
     alignItems: "center",
     marginTop: 30,
     backgroundColor: "black",
