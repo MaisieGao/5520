@@ -4,6 +4,7 @@ import Color from "./../components/Color";
 import Card from "./../components/Card";
 import Topic from "./../components/Topic";
 import ButtonBox from "../components/ButtonBox";
+import Container from "./../components/Container";
 const CompareNumberPage = (props) => {
   const [direction, setDirection] = useState("");
   let guess = props.pickedNumber;
@@ -20,8 +21,7 @@ const CompareNumberPage = (props) => {
   }, []);
   return (
     <Modal visible={props.modal} style={styles.container} transparent={true}>
-    <View style={styles.container}>
-      
+    <Container style={styles.container}> 
       {props.pickedNumber != props.guessNumber ? (
         <>
           <Card style={styles.card}>
@@ -33,20 +33,20 @@ const CompareNumberPage = (props) => {
               </Topic>
               <Topic style={styles.text2}>Guess {direction}!</Topic>
             </View>
-            <View style={styles.button}>
+            <ButtonBox/>
               <Button
                 color={Color.buttonPurple}
                 title="I am done!"
                 onPress={props.gameIsOver}
               />
-            </View>
-            <View style={styles.button}>
+            
+            <ButtonBox/>
               <Button
                 color={Color.buttonPink}
                 title="Let Me Guess Again"
                 onPress={props.onRestart}
               />
-            </View>
+            
             {/* </Modal> */}
           </Card>
           
@@ -56,7 +56,7 @@ const CompareNumberPage = (props) => {
           <View>
             <Topic style={styles.text1}>Congrats! You Won!</Topic>
           </View>
-          <ButtonBox style={styles.button}/>
+          <ButtonBox/>
             <Button
               color={Color.buttonPink}
               title="Thank you!"
@@ -65,25 +65,19 @@ const CompareNumberPage = (props) => {
           
         </Card>
       )}
-    </View>
+    </Container>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "center",
     display: "flex",
   },
-  button: {
-    marginTop: 25,
-  },
   card: {
-    height: 270,
-    
+    height: 270,   
   },
   card2: {
     height: 130,

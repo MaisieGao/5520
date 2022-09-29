@@ -4,10 +4,11 @@ import Color from "./../components/Color";
 import Title from "./../components/Title";
 import Card from "./../components/Card";
 import Topic from "./../components/Topic";
+import Container from "./../components/Container";
 const GameOverPage = (props) => {
   let win = props.win;
   return (
-    <View style={styles.container} >
+    <Container style={styles.container}>
       <Title style={styles.title}>Game is Over</Title>
       <Card style={styles.card}>
         <Topic style={styles.topic}>Here is your picture</Topic>
@@ -17,12 +18,12 @@ const GameOverPage = (props) => {
               uri:
                 "https://picsum.photos/id/" + props.pickedNumber + "/100/100",
             }}
-            style={{ width: 150, height: 150, marginTop: 22, marginBottom: 17 }}
+            style={styles.image}
           />
         ) : (
           <Image
             source={require("../components/sadEmoji.png")}
-            style={{ width: 150, height: 150, marginTop: 22, marginBottom: 17 }}
+            style={styles.image}
           />
         )}
         <Button
@@ -31,15 +32,19 @@ const GameOverPage = (props) => {
           onPress={props.restart}
         />
       </Card>
-    </View>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginTop: 65,
-    alignItems: "center",
+  },
+  image: {
+    width: 150,
+    height: 150,
+    marginTop: 22,
+    marginBottom: 17,
   },
   title: {
     marginTop: 1,
@@ -47,7 +52,6 @@ const styles = StyleSheet.create({
   card: {
     height: 300,
   },
-
 });
 
 export default GameOverPage;

@@ -12,12 +12,11 @@ import Card from "./../components/Card";
 import Title from "./../components/Title";
 import Input from "./../components/Input";
 import Topic from "./../components/Topic";
-
+import Container from "./../components/Container";
 const ChooseNumberPage = (props) => {
   const [inputNumber, setInputNumber] = useState();
-
   const handleChangeFunction = (text) => {
-    const filteredText = text.replace(/\D/gm, '');     
+    const filteredText = text.replace(/\D/gm, "");
     setInputNumber(filteredText);
   };
   const resetvalueFunction = () => {
@@ -39,13 +38,13 @@ const ChooseNumberPage = (props) => {
     Keyboard.dismiss();
   };
   return (
-    <View style={styles.container}>
+    <Container style={styles.container}>
       <Title style={styles.title}>Guess My Number</Title>
       <Card style={styles.card}>
         <Topic style={styles.topic}>Enter a Number</Topic>
         <Input
           blurOnSubmit
-          keyboardType='number-pad'
+          keyboardType="number-pad"
           onChangeText={handleChangeFunction}
           value={inputNumber}
           maxLength={4}
@@ -63,31 +62,27 @@ const ChooseNumberPage = (props) => {
               color={Color.buttonPurple}
               title="Confirm"
               onPress={InputNumberFunction}
-              
             />
           </View>
         </View>
       </Card>
-    </View>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 10,
-    alignItems: "center",
   },
   button: {
     width: Dimensions.get("window").width / 4,
     maxWidth: 90,
   },
- 
+
   summaryContainer: {
     marginTop: 20,
     alignItems: "center",
   },
-
   buttonBox: {
     marginTop: 30,
     flexDirection: "row",
