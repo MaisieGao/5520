@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
-  TextInput,
   Button,
   Keyboard,
   Alert,
   StyleSheet,
   Dimensions,
 } from "react-native";
-import Color from "../Color";
+import Color from "./../components/Color";
+import Card from "./../components/Card";
+import Title from "./../components/Title";
+import Input from "./../components/Input";
+import Topic from "./../components/Topic";
+
 const ChooseNumberPage = (props) => {
   const [inputNumber, setInputNumber] = useState();
 
   const handleChangeFunction = (text) => {
-    setInputNumber(text);
+    const filteredText = text.replace(/\D/gm, '');     
+    setInputNumber(filteredText);
   };
   const resetvalueFunction = () => {
     setInputNumber("");
@@ -30,39 +34,43 @@ const ChooseNumberPage = (props) => {
       return;
     }
     props.startGame(inputNumber);
+    props.modal();
     // hide keyboard
     Keyboard.dismiss();
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Guess My Number</Text>
-      <View style={styles.card}>
-        <Text style={styles.topic}>Enter a Number</Text>
-        <TextInput
-          style={styles.textInput}
+      <Title style={styles.title}>Guess My Number</Title>
+      <Card style={styles.card}>
+        <Topic style={styles.topic}>Enter a Number</Topic>
+        <Input
+          type="number"
           blurOnSubmit
-          autoCapitalize="none"
-          keyboardType="phone-pad"
+          textContentType='telephoneNumber' 
+          dataDetectorTypes='phoneNumber' 
+          keyboardType='number-pad'
           onChangeText={handleChangeFunction}
           value={inputNumber}
+          maxLength={4}
         />
         <View style={styles.buttonBox}>
           <View style={styles.button}>
             <Button
-              color={Color.purple}
+              color={Color.buttonPink}
               title="Reset"
               onPress={resetvalueFunction}
             />
           </View>
           <View style={styles.button}>
             <Button
-              color={Color.pink}
+              color={Color.buttonPurple}
               title="Confirm"
               onPress={InputNumberFunction}
+              
             />
           </View>
         </View>
-      </View>
+      </Card>
     </View>
   );
 };
@@ -73,52 +81,14 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: "center",
   },
-  title: {
-    fontSize: 25,
-    marginTop: 65,
-    marginVertical: 10,
-    height: 55,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    color: "#800080",
-    borderColor: "#800080",
-  },
-  topic: {
-    marginTop: 20,
-    fontSize: 23,
-    color: "yellow",
-  },
   button: {
     width: Dimensions.get("window").width / 4,
     maxWidth: 90,
   },
-  textInput: {
-    width: 50,
-    textAlign: "center",
-    borderBottomColor: "yellow", // Add this to specify bottom border color
-    borderBottomWidth: 1,
-    marginTop: 25,
-    color: "yellow",
-    fontSize:20
-  },
+ 
   summaryContainer: {
     marginTop: 20,
     alignItems: "center",
-  },
-  card: {
-    width: "80%",
-    maxWidth: "95%",
-    minWidth: 300,
-    height: 190,
-    alignItems: "center",
-    marginTop: 30,
-    backgroundColor: "black",
-    borderRadius: 19,
-    shadowColor: "blue",
-    shadowOffset: { width: 5, height: 5 },
-    shadowOpacity: 0.26,
-    elevation: 20,
   },
 
   buttonBox: {

@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
-import Color from "../Color";
+import { View, StyleSheet,Button,Modal } from "react-native";
+import Color from "./../components/Color";
+import Card from "./../components/Card";
+import Topic from "./../components/Topic";
+import ButtonBox from "../components/ButtonBox";
 const CompareNumberPage = (props) => {
   const [direction, setDirection] = useState("");
   let guess = props.pickedNumber;
@@ -16,48 +19,54 @@ const CompareNumberPage = (props) => {
     getDirectionFunction();
   }, []);
   return (
+    <Modal visible={props.modal} style={styles.container} transparent={true}>
     <View style={styles.container}>
+      
       {props.pickedNumber != props.guessNumber ? (
         <>
-          <View style={styles.card}>
+          <Card style={styles.card}>
+          {/* <Modal visible={props.modal}> */}
             <View>
-              <Text style={styles.text1}>
+              <Topic style={styles.text1}>
                 You have chosen {props.pickedNumber}
                 {"\n"}That's not my number!
-              </Text>
-              <Text style={styles.text2}>Guess {direction}!</Text>
+              </Topic>
+              <Topic style={styles.text2}>Guess {direction}!</Topic>
             </View>
             <View style={styles.button}>
               <Button
-                color={Color.purple}
+                color={Color.buttonPurple}
                 title="I am done!"
                 onPress={props.gameIsOver}
               />
             </View>
             <View style={styles.button}>
               <Button
-                color={Color.pink}
+                color={Color.buttonPink}
                 title="Let Me Guess Again"
                 onPress={props.onRestart}
               />
             </View>
-          </View>
+            {/* </Modal> */}
+          </Card>
+          
         </>
       ) : (
-        <View style={styles.card2}>
+        <Card style={styles.card2}>
           <View>
-            <Text style={styles.text1}>Congrats! You Won!</Text>
+            <Topic style={styles.text1}>Congrats! You Won!</Topic>
           </View>
-          <View style={styles.button}>
+          <ButtonBox style={styles.button}/>
             <Button
-              color={Color.pink}
+              color={Color.buttonPink}
               title="Thank you!"
               onPress={props.gameHadWin}
             />
-          </View>
-        </View>
+          
+        </Card>
       )}
     </View>
+    </Modal>
   );
 };
 
@@ -73,46 +82,19 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   card: {
-    width: "80%",
-    maxWidth: "95%",
-    minWidth: 300,
-    height: 280,
-    alignItems: "center",
-    marginTop: 30,
-    backgroundColor: "black",
-    borderRadius: 20,
-    borderRadius: 19,
-    shadowColor: "blue",
-    shadowOffset: { width: 5, height: 5 },
-    shadowOpacity: 0.26,
-    elevation: 20,
+    height: 270,
+    
   },
   card2: {
-    width: "80%",
-    maxWidth: "95%",
-    minWidth: 300,
     height: 130,
-    alignItems: "center",
-    marginTop: 30,
-    backgroundColor: "black",
-    borderRadius: 19,
-    borderRadius: 19,
-    shadowColor: "blue",
-    shadowOffset: { width: 5, height: 5 },
-    shadowOpacity: 0.26,
-    elevation: 20,
   },
   text1: {
-    color: "yellow",
-    fontSize: 23,
     justifyContent: "center",
-    marginTop: 20,
     textAlign: "center",
   },
   text2: {
-    color: "yellow",
-    fontSize: 23,
     textAlign: "center",
+    marginTop: 0,
   },
 });
 
