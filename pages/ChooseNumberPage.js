@@ -45,8 +45,6 @@ const ChooseNumberPage = (props) => {
         <Topic style={styles.topic}>Enter a Number</Topic>
         <Input
           blurOnSubmit
-          textContentType='telephoneNumber' 
-          dataDetectorTypes='phoneNumber' 
           keyboardType='number-pad'
           onChangeText={handleChangeFunction}
           value={inputNumber}
