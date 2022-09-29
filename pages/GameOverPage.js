@@ -17,12 +17,12 @@ const GameOverPage = (props) => {
               uri:
                 "https://picsum.photos/id/" + props.pickedNumber + "/100/100",
             }}
-            style={{ width: 200, height: 200, marginTop: 20, marginBottom: 25 }}
+            style={{ width: 150, height: 150, marginTop: 22, marginBottom: 17 }}
           />
         ) : (
           <Image
             source={require("../components/sadEmoji.png")}
-            style={{ width: 200, height: 200, marginTop: 20, marginBottom: 20 }}
+            style={{ width: 150, height: 150, marginTop: 22, marginBottom: 17 }}
           />
         )}
         <Button
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginTop: 1,
   },
   card: {
-    height: 360,
+    height: 300,
   },
 
 });
