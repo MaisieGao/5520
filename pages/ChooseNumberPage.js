@@ -16,8 +16,7 @@ import Container from "./../components/Container";
 const ChooseNumberPage = (props) => {
   const [inputNumber, setInputNumber] = useState();
   const handleChangeFunction = (text) => {
-    const filteredText = text.replace(/\D/gm, "");
-    setInputNumber(filteredText);
+    setInputNumber(text);
   };
   const resetvalueFunction = () => {
     setInputNumber("");
