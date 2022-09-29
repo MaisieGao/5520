@@ -44,7 +44,6 @@ const ChooseNumberPage = (props) => {
       <Card style={styles.card}>
         <Topic style={styles.topic}>Enter a Number</Topic>
         <Input
-          type="number"
           blurOnSubmit
           textContentType='telephoneNumber' 
           dataDetectorTypes='phoneNumber' 
