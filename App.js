@@ -63,7 +63,9 @@ export default function App() {
   };
 
   let screen = (
-    <ChooseNumberPage startGame={startGameFunction} modal={makeModalVisible} />
+    <ChooseNumberPage 
+      startGame={startGameFunction} 
+      modal={makeModalVisible} />
   );
   if (gameOver && !restart) {
     screen = (
