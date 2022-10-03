@@ -2,7 +2,8 @@ import {View, TextInput, Button, StyleSheet, Modal, Image} from 'react-native'
 import React,{useState} from 'react' 
 
 export default function Input({onAdd, modal, onCancel}){
-    const [text, setText] = useState('')
+    const [text, setText] = useState("")
+
     return(
         <Modal visible={modal}>
             <View style={styles.container}>
