@@ -16,12 +16,14 @@ export default function App() {
     setGoals((prevgoals)=>{return [...prevgoals,newGoal]})
   }
   const onTextDelete = (deleteKey) =>{
-    const array = goals.filter((goal) => {return goal.key != deleteKey});
+    const array = goals.filter((goal) => {return goal.key !== deleteKey});
     setGoals(array);
   }
   const makeModalVisible = () => {setModalVisible(true)}
   const makeModalInvisible = () => {setModalVisible(false)}
-  
+  const itemPressed = () =>{
+    console.log('item pressed')
+}
   
   
   return (
@@ -44,7 +46,7 @@ export default function App() {
           console.log(item)
           return(
             //passing this prop to the other component
-            <GoalItem goal={item} onCancel={onTextDelete}/>
+            <GoalItem goal={item} onCancel={onTextDelete} onItemPress={itemPressed}/>
           )
         }}
         contentContainerStyle={styles.contentContainer} 
@@ -89,8 +91,6 @@ const styles = StyleSheet.create({
   bottom:{
     flex:4,
     backgroundColor: 'pink',
-    
-    
   },
  
 
