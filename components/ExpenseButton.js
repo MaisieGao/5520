@@ -1,10 +1,13 @@
-import { View, Text, StyleSheet, Button, Pressable } from 'react-native'
+
+import { View, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
-import DeleteButton from './DeleteButton'
-export default function GoalItem({goal,onCancel, onItemPress}) {
-   const onCancelGoalItem = () =>{
+import { Ionicons } from '@expo/vector-icons'; 
+
+export default function ExpenseButton({goal,onCancel, onItemPress}) {
+    const onCancelGoalItem = () =>{
         onCancel(goal.key);
    }
+   
   return (
     <Pressable onPress={onItemPress} 
     android_ripple={{color:"#25555",foreground:true,radius:1}}
@@ -15,12 +18,13 @@ export default function GoalItem({goal,onCancel, onItemPress}) {
     >
     <View style={styles.textBox} key={goal.key}>
     <Text style={styles.text}>{goal.text}</Text>
-    <DeleteButton onDelete={onCancelGoalItem}/>
+    
     </View>
     </Pressable>
   )
 }
 const styles = StyleSheet.create({
+   
     textBox:{
         borderRadius: 5,
         backgroundColor: "#aaa",
@@ -41,4 +45,5 @@ const styles = StyleSheet.create({
         backgroundColor:'red',
         opacity:0.5
       }
+
 });
