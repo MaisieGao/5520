@@ -6,7 +6,9 @@ export default function GoalItem({goal,onCancel, onItemPress}) {
         onCancel(goal.key);
    }
   return (
-    <Pressable onPress={onItemPress} 
+    <Pressable onPress={()=>{
+      onItemPress(goal)
+    }} 
     android_ripple={{color:"#25555",foreground:true,radius:1}}
     style={(obj)=>{
       
