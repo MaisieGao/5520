@@ -1,18 +1,18 @@
 
-import { View, StyleSheet, Pressable } from 'react-native'
+import { View, StyleSheet, Pressable,Text } from 'react-native'
 import React from 'react'
-import { Ionicons } from '@expo/vector-icons'; 
+import { useNavigation } from '@react-navigation/native';
 
-export default function ExpenseButton({goal,onCancel, onItemPress}) {
-    const onCancelGoalItem = () =>{
-        onCancel(goal.key);
+export default function ExpenseButton({goal}) {
+    const navigation = useNavigation();
+    const onItemPress = () =>{
+      navigation.navigate('edit');
    }
    
   return (
     <Pressable onPress={onItemPress} 
     android_ripple={{color:"#25555",foreground:true,radius:1}}
     style={(obj)=>{
-      
       return obj.pressed && styles.pressedItem;
     }}
     >

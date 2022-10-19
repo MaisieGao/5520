@@ -1,7 +1,7 @@
 import {View, TextInput, Button, StyleSheet, Text} from 'react-native'
 import React,{useState} from 'react' 
 
-export default function Input({onAdd, navigation}){
+export default function InputExpense({onAdd, navigation}){
     const [text, setText] = useState("")
     const [description, setDescription] = useState("")
     const InputNumberFunction = () => {

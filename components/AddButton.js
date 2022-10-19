@@ -3,25 +3,22 @@ import { View, SafeAreaView,Text, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'; 
 
-export default function AddButton({onNavigate}) {
+export default function AddButton({onPress}) {
   
   return (
     <Pressable  
-    onPress={onNavigate} 
+    onPress={onPress} 
+    
     >
-        <View style={styles.button}>
-        <Ionicons name="add" size={24} color="black" />
+        <View>
+        <Ionicons name="add" size={28} color="black" style={styles.button}/>
         </View>
     </Pressable>
 
   )
 }
 const styles = StyleSheet.create({
-   
-    button:{
-        
-        fontSize:18,
-        justifyContent:'center'
+    button:{ 
+        marginRight: 5     
     }
-
 });

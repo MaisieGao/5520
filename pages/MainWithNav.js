@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { FontAwesome } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
 import Color from '../components/Color';
@@ -9,64 +9,64 @@ import Color from '../components/Color';
 import AllExpenses from './screens/AllExpenses';
 import ImportantExpenses from './screens/ImportantExpenses';
 import AddButton from '../components/AddButton';
-import Input from './screens/InputExpense';
+import { useNavigation } from '@react-navigation/native';
 
-const Tab = createBottomTabNavigator();
 
 function MainWithNav() {
+  const navigation = useNavigation();
+  const Tab = createBottomTabNavigator();
+  const Stack = createNativeStackNavigator(); 
+  const rightButton = () =>{
+    return <AddButton onPress={() => {
+      navigation.navigate('input');
+    }} 
+    />
+  }
   return (
     <React.Fragment>
-    
-    <NavigationContainer>
-    
-      <Tab.Navigator initialRouteName="home">
+      <Tab.Navigator 
+      
+      screenOptions={{headerStyle: {
+        backgroundColor: '#f4511e',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      }}}
+      >
         <Tab.Screen 
-          name="home"
+          name="All Expenses"
           component={AllExpenses}
-          options={{
-            title: 'All Expenses',
-            headerStyle: {
-              backgroundColor: '#f4511e',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
+          options={({ route,navigation }) => {
+            return {
+              title: 'All Expenses',
+              headerRight: rightButton,
+              tabBarIcon: ({focused}) => {
+                return (
+                  <FontAwesome 
+                  name="dollar" 
+                  size={24} 
+                  color={focused ? Color.tabActive : Color.tabInactive} />
+                )}
+            }}
+          }/>
+        <Tab.Screen 
+        name="Important Expenses"
+        component={ImportantExpenses}
+        options={({ route,navigation }) => {
+          return {
+            title: 'Important Expenses',
+            headerRight: rightButton,
             tabBarIcon: ({focused}) => {
               return (
-                <FontAwesome 
-                name="dollar" 
-                size={24} 
-                color={focused ? Color.tabActive : Color.tabInactive} />
-              );
-            },
-          }}/>
-        <Tab.Screen 
-        name="important"
-        component={ImportantExpenses}
-        options={{
-          title: 'Important Expenses',
-          headerStyle: {
-            backgroundColor: '#f4511e',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          tabBarIcon: ({focused}) => {
-            return (
-              <AntDesign 
+                <AntDesign 
               name="exclamation" 
               size={24} 
               color={focused ? Color.tabActive : Color.tabInactive} />
-            );
-          },
-        }}
-         />
-         
+              )}
+          }}
+        }/>
         </Tab.Navigator>
-     
-    </NavigationContainer>
     </React.Fragment>
   );
 }
