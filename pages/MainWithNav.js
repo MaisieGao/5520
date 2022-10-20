@@ -10,6 +10,7 @@ import AllExpenses from './screens/AllExpenses';
 import ImportantExpenses from './screens/ImportantExpenses';
 import AddButton from '../components/AddButton';
 import { useNavigation } from '@react-navigation/native';
+import {StyleSheet} from 'react-native'
 
 
 function MainWithNav() {
@@ -27,12 +28,14 @@ function MainWithNav() {
       <Tab.Navigator 
       
       screenOptions={{headerStyle: {
-        backgroundColor: '#f4511e',
+        backgroundColor: Color.darkScreen,
       },
-      headerTintColor: '#fff',
+      headerTintColor: Color.wordColor,
       headerTitleStyle: {
         fontWeight: 'bold',
-      }}}
+      },
+      tabBarStyle: { backgroundColor: Color.darkScreen, paddingBottom: 10},
+    }}
       >
         <Tab.Screen 
           name="All Expenses"
@@ -53,6 +56,7 @@ function MainWithNav() {
         <Tab.Screen 
         name="Important Expenses"
         component={ImportantExpenses}
+        style={styles.tabBar}
         options={({ route,navigation }) => {
           return {
             title: 'Important Expenses',
@@ -71,4 +75,12 @@ function MainWithNav() {
   );
 }
 
+const styles = StyleSheet.create({
+  tabBar: {
+   
+    backgroundColor: Color.lightScreen,
+    
+    //set everything to be horizontal
+  //   flexDirection: "row"
+  }})
 export default MainWithNav;

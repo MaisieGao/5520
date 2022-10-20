@@ -5,23 +5,25 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainWithNav from './pages/MainWithNav';
 import InputExpense from './pages/screens/InputExpense';
 import EditExpense from './pages/screens/EditExpense';
+import Color from './components/Color';
 const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator 
       screenOptions={{headerStyle: {
-        backgroundColor: '#f4511e',
+        backgroundColor: Color.darkScreen,
       },
-      headerTintColor: '#fff',
+      headerTintColor: Color.wordColor,
       headerTitleStyle: {
         fontWeight: 'bold',
-      }}}>
+      },
+      }}>
       <Stack.Screen
           name="nav"
           component={MainWithNav}
         />
-        <Stack.Screen name="input" component={InputExpense} options={{title: 'Input Expense'}}/>
+        <Stack.Screen name="input" component={InputExpense} options={{title: 'Add Expense'}}/>
         <Stack.Screen name="edit" component={EditExpense} options={{title: 'Edit Expense'}}/>
       </Stack.Navigator>
     

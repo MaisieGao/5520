@@ -2,6 +2,7 @@
 import React,{useState} from 'react'
 import { StyleSheet, Text, TextInput, View, Button, SafeAreaView, FlatList } from 'react-native';
 import AddButton from '../../components/AddButton'
+import Color from '../../components/Color';
 import ExpenseButton from '../../components/ExpenseButton';
 export default function AllExpenses({navigation}) {
   const expenses = [
@@ -15,8 +16,9 @@ export default function AllExpenses({navigation}) {
     }
   ]
   return (
-    <SafeAreaView>
-      <View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.margin}></View>
+      <View style={styles.scroll}>
       <FlatList 
         data={expenses} 
         // obj is a bigger thing wrapped goals. 
@@ -26,7 +28,7 @@ export default function AllExpenses({navigation}) {
           console.log(item)
           return(
             //passing this prop to the other component
-            <ExpenseButton goal={item}/>
+            <ExpenseButton goal={item} />
           )
         }}
         contentContainerStyle={styles.contentContainer} 
@@ -39,9 +41,12 @@ export default function AllExpenses({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    //set everything to be horizontal
-  //   flexDirection: "row"
-  }})
+    backgroundColor: Color.lightScreen,
+  },
+  margin:{
+    flex:1
+  },
+  scroll:{
+    flex: 20
+  }
+})

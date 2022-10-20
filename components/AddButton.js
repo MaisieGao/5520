@@ -8,7 +8,6 @@ export default function AddButton({onPress}) {
   return (
     <Pressable  
     onPress={onPress} 
-    
     >
         <View>
         <Ionicons name="add" size={28} color="black" style={styles.button}/>
