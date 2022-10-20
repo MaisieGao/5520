@@ -20,7 +20,7 @@ function App() {
       },
       }}>
       <Stack.Screen
-          name="nav"
+          name="back"
           component={MainWithNav}
         />
         <Stack.Screen name="input" component={InputExpense} options={{title: 'Add Expense'}}/>

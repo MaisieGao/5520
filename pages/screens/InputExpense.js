@@ -16,7 +16,11 @@ export default function InputExpense({onAdd, navigation}){
             [{ text: "Ok", onPress: setNumber(0) }]
           );
           return;
-        }};
+        }
+        else{
+            console.log(number)
+        }
+    };
     return(
        
         <View style={styles.container}>

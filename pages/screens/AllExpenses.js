@@ -4,7 +4,7 @@ import { StyleSheet, Text, TextInput, View, Button, SafeAreaView, FlatList } fro
 import AddButton from '../../components/AddButton'
 import Color from '../../components/Color';
 import ExpenseButton from '../../components/ExpenseButton';
-export default function AllExpenses({navigation}) {
+export default function AllExpenses() {
   const expenses = [
     {
       key:1,

@@ -10,16 +10,16 @@ import AllExpenses from './screens/AllExpenses';
 import ImportantExpenses from './screens/ImportantExpenses';
 import AddButton from '../components/AddButton';
 import { useNavigation } from '@react-navigation/native';
-import {StyleSheet} from 'react-native'
+import {StyleSheet, Text} from 'react-native'
 
 
 function MainWithNav() {
   const navigation = useNavigation();
   const Tab = createBottomTabNavigator();
-  const Stack = createNativeStackNavigator(); 
+ 
   const rightButton = () =>{
     return <AddButton onPress={() => {
-      navigation.navigate('input');
+      navigation.navigate('input','back');
     }} 
     />
   }
@@ -40,15 +40,20 @@ function MainWithNav() {
         <Tab.Screen 
           name="All Expenses"
           component={AllExpenses}
-          options={({ route,navigation }) => {
+          options={() => {
             return {
-              title: 'All Expenses',
+              tabBarLabel: ({focused, color, size}) => (
+                <Text 
+                style={{color: focused ? Color.tabActive : Color.tabInactive,
+                fontSize: 12
+                }}>All Expenses</Text>
+              ),
               headerRight: rightButton,
               tabBarIcon: ({focused}) => {
                 return (
                   <FontAwesome 
                   name="dollar" 
-                  size={24} 
+                  size={25} 
                   color={focused ? Color.tabActive : Color.tabInactive} />
                 )}
             }}
@@ -57,15 +62,20 @@ function MainWithNav() {
         name="Important Expenses"
         component={ImportantExpenses}
         style={styles.tabBar}
-        options={({ route,navigation }) => {
+        options={() => {
           return {
-            title: 'Important Expenses',
+            tabBarLabel: ({focused, color, size}) => (
+              <Text 
+              style={{color: focused ? Color.tabActive : Color.tabInactive,
+              fontSize: 12
+              }}>Important Expenses</Text>
+            ),
             headerRight: rightButton,
             tabBarIcon: ({focused}) => {
               return (
                 <AntDesign 
               name="exclamation" 
-              size={24} 
+              size={30} 
               color={focused ? Color.tabActive : Color.tabInactive} />
               )}
           }}
