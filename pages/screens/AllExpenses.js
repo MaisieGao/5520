@@ -4,36 +4,43 @@ import { StyleSheet, Text, TextInput, View, Button, SafeAreaView, FlatList } fro
 import AddButton from '../../components/AddButton'
 import Color from '../../components/Color';
 import ExpenseButton from '../../components/ExpenseButton';
+
+import db from '../../Firebase.js'; 
+import { collection, doc, onSnapshot, addDoc } from 'firebase/firestore';
+
+
 export default function AllExpenses() {
-  const expenses = [
-    {
-      key:1,
-      expense: 'car'
-    },
-    {
-      key:2,
-      expense: 'eat'
-    }
-  ]
+
+  const [expenses, setExpense] = useState([])
+  //get data from expense collection and set data as expense
+  useEffect(()=>{
+    onSnapshot(collection(db,'expenses'),(snapshot)=>{
+      setExpense(snapshot.docs.map((doc)=>({...doc.data(),id:doc.id})))
+    },[]);
+  })
+
+ 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.margin}></View>
       <View style={styles.scroll}>
-      <FlatList 
+        {expenses?
+        <FlatList 
         data={expenses} 
-        // obj is a bigger thing wrapped goals. 
         // obj has three things--item, index, separators
-        // you can defracture it to make it only print item
-        renderItem={({item})=>{
-          console.log(item)
+        renderItem={({item,index})=>{        
           return(
-            //passing this prop to the other component
-            <ExpenseButton goal={item} />
+            //passing assign is 2 to expense button to note the button is clicked from All Expenses page
+            <ExpenseButton  item={item} index={index} assign={'2'}/>
           )
         }}
         contentContainerStyle={styles.contentContainer} 
        >
         </FlatList>
+        :
+        <View></View>
+        }
+      
       </View>
     </SafeAreaView>
   )

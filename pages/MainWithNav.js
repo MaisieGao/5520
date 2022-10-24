@@ -18,11 +18,17 @@ function MainWithNav() {
   const Tab = createBottomTabNavigator();
  
   const rightButton = () =>{
-    return <AddButton onPress={() => {
-      navigation.navigate('input','back');
-    }} 
-    />
-  }
+    return <AddButton 
+    onPress={() => {
+      navigation.navigate('input','all');
+    } 
+   }/>}
+   const rightButton2 = () =>{
+    return <AddButton 
+    onPress={() => {
+      navigation.navigate('input','importance');
+    } 
+   }/>}
   return (
     <React.Fragment>
       <Tab.Navigator 
@@ -70,7 +76,7 @@ function MainWithNav() {
               fontSize: 12
               }}>Important Expenses</Text>
             ),
-            headerRight: rightButton,
+            headerRight: rightButton2,
             tabBarIcon: ({focused}) => {
               return (
                 <AntDesign 

@@ -1,13 +1,43 @@
 import { Alert,Pressable,StyleSheet,View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Color from '../../components/Color';
 import { useNavigation } from '@react-navigation/native';
+import db from '../../Firebase.js'; 
+import { deleteDoc, setDoc } from 'firebase/firestore';
 
 export default function EditExpense() {
-    const navigation = useNavigation();
-    const onDelete = () =>{
-        console.log("Delete Pressed") 
+  const navigation = useNavigation();
+  const [collection, setCollection] = useState('expenses');
+  //add data into ImportantExpenses collection if pressed mark as important button
+  const addNew = async() =>{
+    //give id as the id each expense button generated
+    const id = navigation.state.params.id
+    const docRef = doc(db, 'ImportantExpenses',id);
+    const payload = {
+        name:navigation.state.params.item.name,
+        value:navigation.state.params.item.value,
+  }
+  await setDoc(docRef,payload);}
+
+  //distinguish which page is the expense button clicked from
+  //if from is 1, then it is from the ImportantExpenses page
+  //if from is 2, then it is from the AllExpenses pages
+  //it delete data from different databases
+  useEffect(()=>{
+    if (navigation.state.params.From === 1){
+      setCollection('ImportantExpenses')
+    }else{
+      setCollection('expenses')
+    }
+  },[navigation.state.params.From])
+   
+  //delete the data from database if delete button is pressed
+  //we get the id from the expense button that was clicked on
+    const onDelete = async (id) =>{
+       const docRef = doc(db,{collection},id);
+       await deleteDoc(docRef)
       }
+
       const markAsImportant = () =>{
         Alert.alert(
             "Important",
@@ -18,7 +48,7 @@ export default function EditExpense() {
                 onPress: () => navigation.navigate('edit'),
                 style: "cancel"
               },
-              { text: "Yes", onPress: () => console.log("OK Pressed") }
+              { text: "Yes", onPress: addNew}
             ]
           );
       }

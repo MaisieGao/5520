@@ -1,13 +1,16 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import MainWithNav from './pages/MainWithNav';
 import InputExpense from './pages/screens/InputExpense';
 import EditExpense from './pages/screens/EditExpense';
 import Color from './components/Color';
-const Stack = createNativeStackNavigator();
+import 'expo-dev-menu';
+
+
 function App() {
+  const Stack = createNativeStackNavigator();
+ 
   return (
     <NavigationContainer>
       <Stack.Navigator 

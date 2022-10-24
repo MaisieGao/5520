@@ -4,20 +4,30 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Color from './Color';
 
-export default function ExpenseButton({goal}) {
+
+export default function ExpenseButton({item,index,assign}) {
     const navigation = useNavigation();
+    //when press button, it should navigate to edit page
     const onItemPress = () =>{
-      navigation.navigate('edit');
+      //it should pass the params to edit page so edit page can use the info
+      navigation.navigate('edit',{
+        item:{item},
+        id:{index},
+        From:{assign}
+        
+      });
+      console.log()
    }
-   
+  
   return (
     <Pressable onPress={onItemPress} 
     android_ripple={{color:"#9370db"}}
     style={(obj)=>{
       return obj.pressed && styles.pressedItem;
     }}>
-    <View style={styles.textBox} key={goal.key}>
-    <Text style={styles.text}>{goal.text}</Text>
+    <View style={styles.textBox} key={index}>
+    <Text style={styles.text}>{item.name}</Text>
+    <Text style={styles.text}>{item.value}</Text>
     </View>
     </Pressable>
   )
