@@ -5,18 +5,18 @@ import { useNavigation } from '@react-navigation/native';
 import Color from './Color';
 
 
-export default function ExpenseButton({item,index,assign}) {
+export default function ExpenseButton({item,assign}) {
     const navigation = useNavigation();
     //when press button, it should navigate to edit page
     const onItemPress = () =>{
       //it should pass the params to edit page so edit page can use the info
       navigation.navigate('edit',{
-        item:{item},
-        id:{index},
-        From:{assign}
-        
+        key:item.key,
+        amount:item.amount,
+        description:item.description,
+        From:assign
       });
-      console.log()
+     
    }
   
   return (
@@ -25,9 +25,9 @@ export default function ExpenseButton({item,index,assign}) {
     style={(obj)=>{
       return obj.pressed && styles.pressedItem;
     }}>
-    <View style={styles.textBox} key={index}>
-    <Text style={styles.text}>{item.name}</Text>
-    <Text style={styles.text}>{item.value}</Text>
+    <View style={styles.textBox} key={item.key}>
+    <Text style={styles.text}>{item.amount}</Text>
+    <Text style={styles.text}>{item.description}</Text>
     </View>
     </Pressable>
   )

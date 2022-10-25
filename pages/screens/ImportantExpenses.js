@@ -1,21 +1,34 @@
 
-import React,{useState} from 'react'
-import { StyleSheet, Text, TextInput, View, Button, SafeAreaView, FlatList } from 'react-native';
+import React,{useState, useEffect} from 'react'
+import { StyleSheet, View, SafeAreaView, FlatList } from 'react-native';
 import AddButton from '../../components/AddButton'
 import Color from '../../components/Color';
 import ExpenseButton from '../../components/ExpenseButton';
-import db from '../../Firebase.js'; 
-import { collection, doc, onSnapshot, addDoc } from 'firebase/firestore';
-
+import { collection, onSnapshot } from 'firebase/firestore';
+import {firestore} from '../../firebase/firebase-setup.js';
 export default function AllExpenses() {
   const [importants, setImportants] = useState([])
   //get data from ImportantExpenses collection and mark data as importants 
+  // useEffect(()=>{
+  //   onSnapshot(collection(db,'ImportantExpenses'),(snapshot)=>{
+  //     setImportants(snapshot.docs.map((doc)=>({...doc.data(),id:doc.id})))
+  //   },[]);
+  // })
   useEffect(()=>{
-    onSnapshot(collection(db,'ImportantExpenses'),(snapshot)=>{
-      setImportants(snapshot.docs.map((doc)=>({...doc.data(),id:doc.id})))
-    },[]);
+    onSnapshot(collection(firestore, "ImportantExpense"), (querySnapshot) => {
+if(querySnapshot.empty){
+  setImportants([]);
+  return;
+}
+setImportants(
+  querySnapshot.docs.map((snapDoc)=>{
+    let data=snapDoc.data();
+    data={...data,key:snapDoc.id};
+    return data
   })
-
+)
+      })
+  },[])
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.margin}></View>
@@ -23,11 +36,11 @@ export default function AllExpenses() {
         {importants?
         <FlatList 
         data={importants} 
-        renderItem={({item,index})=>{
+        renderItem={({item})=>{
          
           return(
           //passing assign is 1 to expense button to note the button is clicked from important page
-            <ExpenseButton item={item} index={index} assign={'1'}/>
+            <ExpenseButton item={item} assign={'1'}/>
           )
         }}
         contentContainerStyle={styles.contentContainer} 

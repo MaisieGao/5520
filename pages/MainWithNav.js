@@ -20,13 +20,13 @@ function MainWithNav() {
   const rightButton = () =>{
     return <AddButton 
     onPress={() => {
-      navigation.navigate('input','all');
+      navigation.navigate('input',{page:'all'});
     } 
    }/>}
    const rightButton2 = () =>{
     return <AddButton 
     onPress={() => {
-      navigation.navigate('input','importance');
+      navigation.navigate('input',{page:'importance'});
     } 
    }/>}
   return (

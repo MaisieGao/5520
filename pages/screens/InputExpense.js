@@ -1,29 +1,18 @@
 import {Pressable, View, Alert, TextInput, StyleSheet, Text} from 'react-native'
 import React,{useEffect, useState} from 'react' 
 import Color from '../../components/Color';
-import db from '../../Firebase.js'; 
-import { collection, doc, onSnapshot, addDoc } from 'firebase/firestore';
-export default function InputExpense({ navigation}){
+import {writeToDatabase } from '../../firebase/firestore';
+import { writeToDBForImportant} from '../../firebase/firestoreForImportant';
+import { useNavigation } from '@react-navigation/native';
+
+
+
+export default function InputExpense({route}){
     const [number, setNumber] = useState(0)
     const [description, setDescription] = useState("")
-    const [collection, setCollection] = useState('expenses');
-    useEffect(()=>{
-        if (navigation.state.params === 'important'){
-          setCollection('ImportantExpenses')
-        }else{
-          setCollection('expenses')
-        }
-      },[navigation.state.params.From])
-    //add number and description into a collection called expense 
-    const addNew = async() =>{
-        const collectionRef = collection(db, {collection});
-        const payload = {
-            name:{number},
-            value:{description}    
-    }
-await addDoc(collectionRef,payload)}
+    const navigation = useNavigation();
     //make validation to check a valid value is entered
-    const InputNumberFunction = async () => {
+    const InputNumberFunction = () => {
         if (isNaN(number) || number <= 0 ) {
           Alert.alert(
             "Invalid input!",
@@ -34,8 +23,18 @@ await addDoc(collectionRef,payload)}
         }
         //if it is valid, add data to the collection
         else{
-            ()=>{addNew}
-           }}
+            {route.params.page === 'all'?
+                writeToDatabase(
+                    {amount:number,
+                    description:description }):
+                writeToDBForImportant(
+                    {amount:number,
+                    description:description })
+            }
+            
+           }
+           navigation.goBack()
+        }
     return(
        
         <View style={styles.container}>

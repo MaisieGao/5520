@@ -1,12 +1,10 @@
 
-import React,{useState} from 'react'
-import { StyleSheet, Text, TextInput, View, Button, SafeAreaView, FlatList } from 'react-native';
-import AddButton from '../../components/AddButton'
+import React,{useState,useEffect} from 'react'
+import { StyleSheet, View, SafeAreaView, FlatList } from 'react-native';
 import Color from '../../components/Color';
 import ExpenseButton from '../../components/ExpenseButton';
-
-import db from '../../Firebase.js'; 
-import { collection, doc, onSnapshot, addDoc } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
+import {firestore} from '../../firebase/firebase-setup.js';
 
 
 export default function AllExpenses() {
@@ -14,10 +12,20 @@ export default function AllExpenses() {
   const [expenses, setExpense] = useState([])
   //get data from expense collection and set data as expense
   useEffect(()=>{
-    onSnapshot(collection(db,'expenses'),(snapshot)=>{
-      setExpense(snapshot.docs.map((doc)=>({...doc.data(),id:doc.id})))
-    },[]);
+    onSnapshot(collection(firestore, "Expenses"), (querySnapshot) => {
+if(querySnapshot.empty){
+  setExpense([]);
+  return;
+}
+setExpense(
+  querySnapshot.docs.map((snapDoc)=>{
+    let data=snapDoc.data();
+    data={...data,key:snapDoc.id};
+    return data
   })
+)
+      })
+  },[])
 
  
   return (
@@ -28,10 +36,10 @@ export default function AllExpenses() {
         <FlatList 
         data={expenses} 
         // obj has three things--item, index, separators
-        renderItem={({item,index})=>{        
+        renderItem={({item})=>{        
           return(
             //passing assign is 2 to expense button to note the button is clicked from All Expenses page
-            <ExpenseButton  item={item} index={index} assign={'2'}/>
+            <ExpenseButton  item={item} assign={'2'}/>
           )
         }}
         contentContainerStyle={styles.contentContainer} 
