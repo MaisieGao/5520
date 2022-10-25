@@ -40,7 +40,7 @@ setImportants(
          
           return(
           //passing assign is 1 to expense button to note the button is clicked from important page
-            <ExpenseButton item={item} assign={'1'}/>
+            <ExpenseButton item={item} assign={'important'}/>
           )
         }}
         contentContainerStyle={styles.contentContainer} 

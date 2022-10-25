@@ -39,7 +39,7 @@ setExpense(
         renderItem={({item})=>{        
           return(
             //passing assign is 2 to expense button to note the button is clicked from All Expenses page
-            <ExpenseButton  item={item} assign={'2'}/>
+            <ExpenseButton  item={item} assign={'all'}/>
           )
         }}
         contentContainerStyle={styles.contentContainer} 

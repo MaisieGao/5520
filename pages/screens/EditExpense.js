@@ -8,7 +8,7 @@ export default function EditExpense({route}) {
   const navigation = useNavigation();
   // //add data into ImportantExpenses collection if pressed mark as important button
   const addNew = () =>{
-    {route.params.From === 2?
+    {route.params.From === 'all'?
     //give id as the id each expense button generated
     writeToDBForImportant(
       {amount:route.params.amount,
@@ -22,7 +22,7 @@ export default function EditExpense({route}) {
   //if from is 2, then it is from the AllExpenses pages
   //it delete data from different databases
   const onDelete = ()=>{
-    {route.params.From === 1?
+    {route.params.From === 'important'?
         deleteFromDBForImportant(route.params.key):
         deleteFromDB(route.params.key)}
         navigation.goBack()
@@ -71,7 +71,7 @@ export default function EditExpense({route}) {
         onPress={markAsImportant}>
         <Text
         style={styles.appButton} >
-        {route.params.From === 2?
+        {route.params.From === 'all'?
         'Mark as important':
         'Mark as unimportant'}
         
