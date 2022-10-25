@@ -1,21 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-// if you want to use this function, you have to export it
-export default function App() {
-  const myapp = "string"
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MainWithNav from './pages/MainWithNav';
+import InputExpense from './pages/screens/InputExpense';
+import EditExpense from './pages/screens/EditExpense';
+import helperForColor from './helperForColor';
+import 'expo-dev-menu';
+
+
+function App() {
+  const Stack = createNativeStackNavigator();
+ 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on {myapp}!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator 
+      screenOptions={{headerStyle: {
+        backgroundColor: helperForColor.darkScreen,
+      },
+      headerTintColor: helperForColor.wordColor,
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        fontSize: 20
+      },
+      }}>
+      <Stack.Screen
+          name="back"
+          component={MainWithNav}
+        />
+        <Stack.Screen name="input" component={InputExpense} options={{title: 'Add Expense'}}/>
+        <Stack.Screen name="edit" component={EditExpense} options={{title: 'Edit Expense'}}/>
+      </Stack.Navigator>
+    
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
