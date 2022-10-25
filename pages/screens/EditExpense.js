@@ -47,6 +47,21 @@ export default function EditExpense({route}) {
             ]
           );
       }
+
+      const markAsDelete = () =>{
+        Alert.alert(
+            "Delete",
+            "Are you sure you want to delete this?",
+            [
+              {
+                text: "No",
+                onPress: () => navigation.navigate('edit'),
+                style: "cancel"
+              },
+              { text: "Yes", onPress: onDelete}
+            ]
+          );
+      }
   return (
     <View style={styles.container}>
     <View style={styles.buttonBox}>
@@ -65,7 +80,7 @@ export default function EditExpense({route}) {
     
     <Pressable
         style={styles.button}
-        onPress={onDelete}>
+        onPress={markAsDelete}>
         <Text
         style={styles.appButton} >
         Delete
