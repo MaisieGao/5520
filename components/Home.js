@@ -1,102 +1,121 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Button, SafeAreaView, FlatList } from 'react-native';
+import { StyleSheet, Text, TextInput, View,Button,SafeAreaView,ScrollView,FlatList } from 'react-native';
+import { useState,useEffect } from 'react';
+import Header from './Header';
+import Input from './Input';
 import GoalItem from './GoalItem';
-import Header from './Header'
-import Input from './Input'
-// if you want to use this function, you have to export it
+import { deleteFromDB, writeToDatabase } from '../firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
+import {firestore} from '../firebase/firebase-setup.js';
+
+
 export default function Home({navigation}) {
-  const name = "my app"
-  
-  const [goals, setGoals] = useState([])
-  const [modalVisible, setModalVisible] = useState(false)
-  const onTextAdd = (nextText)=>{
-    setModalVisible(false)
-    const newGoal = {text: nextText, key: Math.random()}
-    setGoals((prevgoals)=>{return [...prevgoals,newGoal]})
-  }
-  const onTextDelete = (deleteKey) =>{
-    const array = goals.filter((goal) => {return goal.key !== deleteKey});
-    setGoals(array);
-  }
-  const makeModalVisible = () => {setModalVisible(true)}
-  const makeModalInvisible = () => {setModalVisible(false)}
-  const itemPressed = (goal) =>{
-    console.log('item pressed')
-    navigation.navigate('GoalDetails',{goalObject:goal})
+  const [goals,setGoals]=useState([]);
+  useEffect(()=>{
+    onSnapshot(collection(firestore, "Goals"), (querySnapshot) => {
+if(querySnapshot.empty){
+  setGoals([]);
+  return;
 }
+setGoals(
+  querySnapshot.docs.map((snapDoc)=>{
+    let data=snapDoc.data();
+    data={...data,key:snapDoc.id};
+    return data;
+  })
+)
+      })
+  },[])
+  //goals=[{text:'learn',key:'random_number'}]
+  const [modalVisible, setModalVisible]=useState(false);
+  const name="My App";
+  const makeModalVisible=()=>{setModalVisible(true)}
+  const makeModalInvisible=()=>{setModalVisible(false)}
+
+
+  function itemPressed(goal){
+    console.log("item pressed");
+    navigation.navigate('GoalDetails', {goalObject:goal});
+  }
+
+  const onTextAdd =function(newText){
+    const newGoal={text:newText,key:Math.random()};
+    writeToDatabase({text:newText});
+    // setGoals((prevgoals)=>{return [...prevgoals,newGoal];})
+    console.log(newText)
+    setModalVisible(false)
+    console.log(goals)  
+  }
+
+function onDelete(deletedKey){
+  console.log(deletedKey)
+  deleteFromDB(deletedKey)
   
-  
+//console.log('delete pressed')
+}
+
   return (
-    <SafeAreaView style={styles.safeContainer}>
-    
-      <View style={styles.head}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.topContainer}>
       <Header appName={name}/>
-      <Button title="add a goal" onPress={makeModalVisible}/>
-      <Input  modal={modalVisible} onAdd={onTextAdd} onCancel={makeModalInvisible}/>
-      <StatusBar style="auto" />
+      <Button title='Add A Goal' onPress={makeModalVisible}/>
       </View>
-      {/* scrollview's parent is supposed to have a height */}
-      <View style={styles.bottom}>
+      <View style={styles.bottomContainer}>
         <FlatList 
         data={goals} 
-        // obj is a bigger thing wrapped goals. 
-        // obj has three things--item, index, separators
-        // you can defracture it to make it only print item
         renderItem={({item})=>{
-          console.log(item)
-          return(
-            //passing this prop to the other component
-            <GoalItem goal={item} onCancel={onTextDelete} onItemPress={itemPressed}/>
-          )
-        }}
-        contentContainerStyle={styles.contentContainer} 
-       >
-          {/* scrollview render everything at once
-          {goals.map((goal)=>{return (
-            // we need a key prop to make each goal have a special key
-            <View style={styles.textBox} key={goal.key}>
-            <Text style={styles.text}>{goal.text}</Text>
-            </View>)
-          
-          })} */}
-        </FlatList>
-    </View>
+          //switch to flatlist
+          //there is {} outside of item
+          //console.log(obj)
+          // remove key prop in view
+          return (
+            <GoalItem goal={item} onCancel={onDelete} onItemPress={itemPressed} />
+         //<View style={styles.textContainer}>
+          //<Text>{item.text}</Text>
+          //</View>
+          )}}
+        contentContainerStyle={styles.scrollViewItem}
+        
+      />
+      </View>
+      <Input modal={modalVisible} onCancel={makeModalInvisible} onAdd={onTextAdd}/>
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safeContainer: {
-    //when you have a percentage for your children, we need a height for parent
-    //either flex or height
-    // flex: 1,
-    height: "100%",
-    // flex take all the space you have 
-    // vertically
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    //alignItems: 'center',
     justifyContent: 'center',
-    // flexDirection: "row"
-    
   },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-  head:{
+  topContainer:{
     flex:1,
-    // horizontally
-    alignItems: 'center',
+    justifyContent:"center",
+    alignItems:"center"
   },
-  bottom:{
+  bottomContainer:{
     flex:4,
-    backgroundColor: 'pink',
+    backgroundColor:'pink',
+    //alignItems:'center'  (moved to scrollviewitem)
   },
+  scrollViewItem:{
+    alignItems:'center'
+  },
+  textContainer:{
+    backgroundColor:'#aaa',
+    borderRadius:5,
+    margin:20,
+    color:'blue',
+    padding:15,
  
+  },
+  text:{
+    fontSize:12
+  }
 
- contentContainer: {
-  // alignItem is in scrollview styling not in view styling
-  alignItems: 'center',
-}
+
 });
+

@@ -28,7 +28,7 @@ export default function Input({onAdd, modal, onCancel}){
                         setText('')
                         
                     }}
-                    disabled={text.length? false: true}
+                    
                     ></Button>
                     </View>
                     <View style={styles.button}>
