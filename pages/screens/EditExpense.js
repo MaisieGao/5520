@@ -1,6 +1,6 @@
 import { Alert,Pressable,StyleSheet,View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Color from '../../components/Color';
+import helperForColor from '../../helperForColor';
 import { useNavigation } from '@react-navigation/native';
 import { deleteFromDB} from '../../firebase/firestore';
 import { deleteFromDBForImportant,writeToDBForImportant} from '../../firebase/firestoreForImportant';
@@ -95,7 +95,7 @@ export default function EditExpense({route}) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: Color.lightScreen,
+      backgroundColor: helperForColor.lightScreen,
       alignItems: 'center',
       
       //set everything to be horizontal
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     button:{
         width: 165,
         height: 37,
-        backgroundColor: Color.darkScreen,
+        backgroundColor: helperForColor.darkScreen,
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 5,

@@ -2,7 +2,7 @@
 import { View, StyleSheet, Pressable,Text } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
-import Color from './Color';
+import helperForColor from '../helperForColor';
 
 
 export default function ExpenseButton({item,assign}) {
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
    
   box:{
     borderRadius: 10,
-    backgroundColor: Color.darkScreen,
+    backgroundColor: helperForColor.darkScreen,
     color: "blue",
     marginVertical:15,
     marginHorizontal:30,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     width:'25%',
     margin:15,
     marginLeft:-15,
-    backgroundColor: Color.wordColor,
+    backgroundColor: helperForColor.wordColor,
     borderRadius: 5,
     alignItems:'center',
     justifyContent:'center',
@@ -69,16 +69,16 @@ const styles = StyleSheet.create({
   largetext:{
     fontSize: 20,
     fontWeight: 'bold',
-    color: Color.wordColor
+    color: helperForColor.wordColor
   },
   smalltext:{
     fontSize: 18,
     fontWeight: 'bold',
     
-    color: Color.darkScreen
+    color: helperForColor.darkScreen
   },
   pressedItem:{
-    color: Color.pressButton,
+    color: helperForColor.pressButton,
     opacity:0.5
   }
 

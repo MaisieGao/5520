@@ -1,6 +1,6 @@
 import {Pressable, View, Alert, TextInput, StyleSheet, Text} from 'react-native'
 import React,{useEffect, useState} from 'react' 
-import Color from '../../components/Color';
+import helperForColor from '../../helperForColor';
 import {writeToDatabase } from '../../firebase/firestore';
 import { writeToDBForImportant} from '../../firebase/firestoreForImportant';
 import { useNavigation } from '@react-navigation/native';
@@ -90,7 +90,7 @@ export default function InputExpense({route}){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: Color.lightScreen,
+      backgroundColor: helperForColor.lightScreen,
       alignItems: 'center',
       justifyContent: 'center',
       //set everything to be horizontal
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     },
     bigWord:{
         fontSize: 25,
-        color:Color.wordColor,
+        color:helperForColor.wordColor,
         fontWeight: 'bold',
         marginBottom: 20,
         marginTop: -50
@@ -112,18 +112,18 @@ const styles = StyleSheet.create({
     text:{
         marginTop: 15,
         textAlign: 'left',
-        color:Color.darkScreen,
+        color:helperForColor.darkScreen,
         fontWeight: 'bold',
     },
     input: {
-        backgroundColor:Color.plainScreen,
+        backgroundColor:helperForColor.plainScreen,
         width: "80%",
         borderWidth: 1,
         borderRadius: 10,
         padding: 10,
     },
     textBox:{
-        backgroundColor:Color.plainScreen,
+        backgroundColor:helperForColor.plainScreen,
         width: "80%",
         borderWidth: 1,
         borderRadius: 10,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     button:{
         width: 110,
         height: 37,
-        backgroundColor: Color.darkScreen,
+        backgroundColor: helperForColor.darkScreen,
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 5,

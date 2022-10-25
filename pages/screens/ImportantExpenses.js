@@ -1,8 +1,8 @@
 
 import React,{useState, useEffect} from 'react'
 import { StyleSheet, View, SafeAreaView, FlatList } from 'react-native';
-import AddButton from '../../components/AddButton'
-import Color from '../../components/Color';
+
+import helperForColor from '../../helperForColor';
 import ExpenseButton from '../../components/ExpenseButton';
 import { collection, onSnapshot } from 'firebase/firestore';
 import {firestore} from '../../firebase/firebase-setup.js';
@@ -57,7 +57,7 @@ setImportants(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Color.lightScreen,
+    backgroundColor: helperForColor.lightScreen,
   },
   margin:{
     flex:1

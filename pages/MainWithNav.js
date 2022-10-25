@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { FontAwesome } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
-import Color from '../components/Color';
+import helperForColor from '../helperForColor';
 // Screens
 import AllExpenses from './screens/AllExpenses';
 import ImportantExpenses from './screens/ImportantExpenses';
@@ -34,14 +34,14 @@ function MainWithNav() {
       <Tab.Navigator 
       
       screenOptions={{headerStyle: {
-        backgroundColor: Color.darkScreen,
+        backgroundColor: helperForColor.darkScreen,
       },
-      headerTintColor: Color.wordColor,
+      headerTintColor: helperForColor.wordColor,
       headerTitleStyle: {
         fontWeight: 'bold',
         fontSize: 20
       },
-      tabBarStyle: { backgroundColor: Color.darkScreen, paddingBottom: 10},
+      tabBarStyle: { backgroundColor: helperForColor.darkScreen, paddingBottom: 10},
     }}
       >
         <Tab.Screen 
@@ -51,7 +51,7 @@ function MainWithNav() {
             return {
               tabBarLabel: ({focused}) => (
                 <Text 
-                style={{color: focused ? Color.tabActive : Color.tabInactive,
+                style={{color: focused ? helperForColor.tabActive : helperForColor.tabInactive,
                 fontSize: 12
                 }}>All Expenses</Text>
               ),
@@ -61,7 +61,7 @@ function MainWithNav() {
                   <FontAwesome 
                   name="dollar" 
                   size={25} 
-                  color={focused ? Color.tabActive : Color.tabInactive} />
+                  color={focused ? helperForColor.tabActive : helperForColor.tabInactive} />
                 )}
             }}
           }/>
@@ -73,7 +73,7 @@ function MainWithNav() {
           return {
             tabBarLabel: ({focused}) => (
               <Text 
-              style={{color: focused ? Color.tabActive : Color.tabInactive,
+              style={{color: focused ? helperForColor.tabActive : helperForColor.tabInactive,
               fontSize: 12
               }}>Important Expenses</Text>
             ),
@@ -83,7 +83,7 @@ function MainWithNav() {
                 <AntDesign 
               name="exclamation" 
               size={30} 
-              color={focused ? Color.tabActive : Color.tabInactive} />
+              color={focused ? helperForColor.tabActive : helperForColor.tabInactive} />
               )}
           }}
         }/>
@@ -95,7 +95,7 @@ function MainWithNav() {
 const styles = StyleSheet.create({
   tabBar: {
    
-    backgroundColor: Color.lightScreen,
+    backgroundColor: helperForColor.lightScreen,
     
     //set everything to be horizontal
   //   flexDirection: "row"

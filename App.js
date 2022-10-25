@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainWithNav from './pages/MainWithNav';
 import InputExpense from './pages/screens/InputExpense';
 import EditExpense from './pages/screens/EditExpense';
-import Color from './components/Color';
+import helperForColor from './helperForColor';
 import 'expo-dev-menu';
 
 
@@ -15,9 +15,9 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator 
       screenOptions={{headerStyle: {
-        backgroundColor: Color.darkScreen,
+        backgroundColor: helperForColor.darkScreen,
       },
-      headerTintColor: Color.wordColor,
+      headerTintColor: helperForColor.wordColor,
       headerTitleStyle: {
         fontWeight: 'bold',
         fontSize: 20
