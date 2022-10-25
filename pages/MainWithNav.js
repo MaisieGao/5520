@@ -39,6 +39,7 @@ function MainWithNav() {
       headerTintColor: Color.wordColor,
       headerTitleStyle: {
         fontWeight: 'bold',
+        fontSize: 20
       },
       tabBarStyle: { backgroundColor: Color.darkScreen, paddingBottom: 10},
     }}
@@ -48,7 +49,7 @@ function MainWithNav() {
           component={AllExpenses}
           options={() => {
             return {
-              tabBarLabel: ({focused, color, size}) => (
+              tabBarLabel: ({focused}) => (
                 <Text 
                 style={{color: focused ? Color.tabActive : Color.tabInactive,
                 fontSize: 12
@@ -70,7 +71,7 @@ function MainWithNav() {
         style={styles.tabBar}
         options={() => {
           return {
-            tabBarLabel: ({focused, color, size}) => (
+            tabBarLabel: ({focused}) => (
               <Text 
               style={{color: focused ? Color.tabActive : Color.tabInactive,
               fontSize: 12

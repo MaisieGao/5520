@@ -25,34 +25,61 @@ export default function ExpenseButton({item,assign}) {
     style={(obj)=>{
       return obj.pressed && styles.pressedItem;
     }}>
-    <View style={styles.textBox} key={item.key}>
-    <Text style={styles.text}>{item.amount}</Text>
-    <Text style={styles.text}>{item.description}</Text>
+    <View style={styles.box} key={item.key}>
+      <View style={styles.largetextbox}>
+      <Text style={styles.largetext}>{item.description}</Text>
+      </View>
+      <View style={styles.smalltextbox}>
+      <Text style={styles.smalltext}>{item.amount}</Text>
+      </View>
+    
+    
     </View>
     </Pressable>
   )
 }
 const styles = StyleSheet.create({
    
-    textBox:{
-        borderRadius: 5,
-        backgroundColor: Color.darkScreen,
-        color: "blue",
-        marginVertical:15,
-        marginHorizontal:30,
-        height: 60,
-        
-        // make the button go horizontal
-        display:'flex',
-        flexDirection: "row",
-        alignItem: "center"
-      },
-      text:{
-        fontSize: 50
-      },
-      pressedItem:{
-        color: Color.pressButton,
-        opacity:0.5
-      }
+  box:{
+    borderRadius: 10,
+    backgroundColor: Color.darkScreen,
+    color: "blue",
+    marginVertical:15,
+    marginHorizontal:30,
+    height: 60, 
+    // make the button go horizontal
+    display:'flex',
+    flexDirection: "row",
+    alignItem: "center"
+  },
+  largetextbox:{
+    width:'70%',
+    justifyContent:'center',
+    marginLeft: 17
+  },
+  smalltextbox:{
+    width:'25%',
+    margin:15,
+    marginLeft:-15,
+    backgroundColor: Color.wordColor,
+    borderRadius: 5,
+    alignItems:'center',
+    justifyContent:'center',
+  },
+  largetext:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: Color.wordColor
+  },
+  smalltext:{
+    fontSize: 18,
+    fontWeight: 'bold',
+    
+    color: Color.darkScreen
+  },
+  pressedItem:{
+    color: Color.pressButton,
+    opacity:0.5
+  }
 
 });

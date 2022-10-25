@@ -20,6 +20,7 @@ function App() {
       headerTintColor: Color.wordColor,
       headerTitleStyle: {
         fontWeight: 'bold',
+        fontSize: 20
       },
       }}>
       <Stack.Screen
