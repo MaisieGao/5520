@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import helperForColor from '../helperForColor';
 
 
-export default function ExpenseButton({item,assign}) {
+export default function ExpenseButton({item}) {
     const navigation = useNavigation();
     //when press button, it should navigate to edit page
     const onItemPress = () =>{
@@ -14,7 +14,7 @@ export default function ExpenseButton({item,assign}) {
         key:item.key,
         amount:item.amount,
         description:item.description,
-        From:assign
+        important: item.important
       });
      
    }

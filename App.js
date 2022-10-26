@@ -26,6 +26,7 @@ function App() {
       <Stack.Screen
           name="back"
           component={MainWithNav}
+          options={{headerShown: false}}
         />
         <Stack.Screen name="input" component={InputExpense} options={{title: 'Add Expense'}}/>
         <Stack.Screen name="edit" component={EditExpense} options={{title: 'Edit Expense'}}/>

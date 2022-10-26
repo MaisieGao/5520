@@ -8,6 +8,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import {firestore} from '../../firebase/firebase-setup.js';
 export default function AllExpenses() {
   const [importants, setImportants] = useState([])
+  
   //get data from ImportantExpenses collection and mark data as importants 
   // useEffect(()=>{
   //   onSnapshot(collection(db,'ImportantExpenses'),(snapshot)=>{
@@ -15,13 +16,19 @@ export default function AllExpenses() {
   //   },[]);
   // })
   useEffect(()=>{
-    onSnapshot(collection(firestore, "ImportantExpense"), (querySnapshot) => {
+    onSnapshot(collection(firestore, "Expenses"), (querySnapshot) => {
 if(querySnapshot.empty){
   setImportants([]);
   return;
 }
-setImportants(
-  querySnapshot.docs.map((snapDoc)=>{
+const filteredList = querySnapshot.docs.filter(async (snapDoc) => {
+  let data = snapDoc.data();
+  
+  return data.important === 'true';
+});
+
+ setImportants(
+  filteredList.map((snapDoc)=>{
     let data=snapDoc.data();
     data={...data,key:snapDoc.id};
     return data
@@ -40,7 +47,7 @@ setImportants(
          
           return(
           //passing assign is 1 to expense button to note the button is clicked from important page
-            <ExpenseButton item={item} assign={'important'}/>
+            <ExpenseButton item={item}/>
           )
         }}
         contentContainerStyle={styles.contentContainer} 

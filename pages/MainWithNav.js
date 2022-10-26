@@ -41,12 +41,13 @@ function MainWithNav() {
         fontWeight: 'bold',
         fontSize: 20
       },
-      tabBarStyle: { backgroundColor: helperForColor.darkScreen, paddingBottom: 10},
+      tabBarStyle: { backgroundColor: helperForColor.darkScreen, paddingBottom: 10, height:80},
     }}
       >
         <Tab.Screen 
           name="All Expenses"
           component={AllExpenses}
+          style={styles.tabBar}
           options={() => {
             return {
               tabBarLabel: ({focused}) => (
@@ -96,7 +97,6 @@ const styles = StyleSheet.create({
   tabBar: {
    
     backgroundColor: helperForColor.lightScreen,
-    
     //set everything to be horizontal
   //   flexDirection: "row"
   }})

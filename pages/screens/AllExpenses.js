@@ -10,7 +10,7 @@ import {firestore} from '../../firebase/firebase-setup.js';
 export default function AllExpenses() {
 
   const [expenses, setExpense] = useState([])
-  //get data from expense collection and set data as expense
+  //get all the data from expense collection and set data as expense
   useEffect(()=>{
     onSnapshot(collection(firestore, "Expenses"), (querySnapshot) => {
 if(querySnapshot.empty){
@@ -19,12 +19,12 @@ if(querySnapshot.empty){
 }
 setExpense(
   querySnapshot.docs.map((snapDoc)=>{
+  
     let data=snapDoc.data();
     data={...data,key:snapDoc.id};
     return data
   })
-)
-      })
+) })
   },[])
 
  
@@ -39,7 +39,7 @@ setExpense(
         renderItem={({item})=>{        
           return(
             //passing assign is 2 to expense button to note the button is clicked from All Expenses page
-            <ExpenseButton  item={item} assign={'all'}/>
+            <ExpenseButton  item={item} />
           )
         }}
         contentContainerStyle={styles.contentContainer} 

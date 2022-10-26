@@ -2,7 +2,6 @@ import {Pressable, View, Alert, TextInput, StyleSheet, Text} from 'react-native'
 import React,{useEffect, useState} from 'react' 
 import helperForColor from '../../helperForColor';
 import {writeToDatabase } from '../../firebase/firestore';
-import { writeToDBForImportant} from '../../firebase/firestoreForImportant';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -26,12 +25,15 @@ export default function InputExpense({route}){
             {route.params.page === 'all'?
                 writeToDatabase(
                     {amount:number,
-                    description:description }):
-                writeToDBForImportant(
+                    description:description,
+                    important: 'false'
+                 }):
+                 writeToDatabase(
                     {amount:number,
-                    description:description })
+                    description:description,
+                    important: 'true'
+                 })
             }
-            
            }
            navigation.goBack()
         }
@@ -57,6 +59,7 @@ export default function InputExpense({route}){
                 onChangeText={(updateText)=>{setDescription(updateText)}}
                 value={description}
                 multiline={true}
+                
                 />
                 <View style={styles.buttonBox}>
                 <View >
@@ -129,6 +132,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         height:150,
         padding: 10,
+        textAlignVertical: 'top'
     },
     button:{
         width: 110,

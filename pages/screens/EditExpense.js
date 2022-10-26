@@ -2,45 +2,47 @@ import { Alert,Pressable,StyleSheet,View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import helperForColor from '../../helperForColor';
 import { useNavigation } from '@react-navigation/native';
-import { deleteFromDB} from '../../firebase/firestore';
-import { deleteFromDBForImportant,writeToDBForImportant} from '../../firebase/firestoreForImportant';
+import { writeToDatabase,updateFromDB,deleteFromDB} from '../../firebase/firestore';
 export default function EditExpense({route}) {
   const navigation = useNavigation();
-  // //add data into ImportantExpenses collection if pressed mark as important button
+
+  const { important } = route?.params.important || {};
+  //add data into ImportantExpenses collection if pressed mark as important button
   const addNew = () =>{
-    {route.params.From === 'all'?
-    //give id as the id each expense button generated
-    writeToDBForImportant(
-      {amount:route.params.amount,
-      description:route.params.description }):
-      deleteFromDBForImportant(route.params.key)}
+    //if important is true, means it is already important
+    {important ==='true'?
+      updateFromDB(route.params.key,{important:'false'})
+    :
+    //if important is false, means it should be added into important
+      updateFromDB(route.params.key,{important:'true'})
+    }
       navigation.goBack()
  }
 
   //distinguish which page is the expense button clicked from
-  //if from is 1, then it is from the ImportantExpenses page
-  //if from is 2, then it is from the AllExpenses pages
   //it delete data from different databases
   const onDelete = ()=>{
-    {route.params.From === 'important'?
-        deleteFromDBForImportant(route.params.key):
-        deleteFromDB(route.params.key)}
-        navigation.goBack()
+    //if important is true, means it is already important,delete from important
+      {important === 'true'?
+      updateFromDB(route.params.key,{important:'false'}):
+      deleteFromDB(route.params.key)
+    }
+      navigation.goBack()
   }
-  const from = route.params.From
   //delete the data from database if delete button is pressed
   
   //we get the id from the expense button that was clicked on
-  
-
       const markAsImportant = () =>{
+        let string = 'unimportant'
+        if (important === 'true'){
+          string = 'important'
+        } 
         Alert.alert(
             "Important",
-            "Are you sure you want to mark this as important?",
+            "Are you sure you want to mark this as "+string,
             [
               {
                 text: "No",
-                onPress: () => navigation.navigate('edit'),
                 style: "cancel"
               },
               { text: "Yes", onPress: addNew}
@@ -55,7 +57,6 @@ export default function EditExpense({route}) {
             [
               {
                 text: "No",
-                onPress: () => navigation.navigate('edit'),
                 style: "cancel"
               },
               { text: "Yes", onPress: onDelete}
@@ -71,9 +72,9 @@ export default function EditExpense({route}) {
         onPress={markAsImportant}>
         <Text
         style={styles.appButton} >
-        {route.params.From === 'all'?
-        'Mark as important':
-        'Mark as unimportant'}
+        {important === 'true'?
+        'Mark as unimportant':
+        'Mark as important'}
         
         </Text>
     </Pressable>
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
         marginTop: 30
     },
     button:{
-        width: 165,
+        width: 200,
         height: 37,
         backgroundColor: helperForColor.darkScreen,
         alignItems: 'center',
