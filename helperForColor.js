@@ -1,3 +1,4 @@
+//A helper file is used to expose common styles (e.g. color values)
 export default {
     tabActive:'#ffd700',
     tabInactive:'#808080',

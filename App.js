@@ -7,7 +7,6 @@ import EditExpense from './pages/screens/EditExpense';
 import helperForColor from './helperForColor';
 import 'expo-dev-menu';
 
-
 function App() {
   const Stack = createNativeStackNavigator();
  
@@ -17,6 +16,7 @@ function App() {
       screenOptions={{headerStyle: {
         backgroundColor: helperForColor.darkScreen,
       },
+      headerBackTitle: "Back",
       headerTintColor: helperForColor.wordColor,
       headerTitleStyle: {
         fontWeight: 'bold',
@@ -24,9 +24,10 @@ function App() {
       },
       }}>
       <Stack.Screen
-          name="back"
+          name="nav"
           component={MainWithNav}
           options={{headerShown: false}}
+          
         />
         <Stack.Screen name="input" component={InputExpense} options={{title: 'Add Expense'}}/>
         <Stack.Screen name="edit" component={EditExpense} options={{title: 'Edit Expense'}}/>
