@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import helperForColor from "../helperForColor";
@@ -18,6 +17,7 @@ function MainWithNav() {
 
   const rightButton = () => {
     return (
+      //add data from different page
       <AddButton
         onPress={() => {
           navigation.navigate("input", { page: "all" });

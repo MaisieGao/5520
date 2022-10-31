@@ -14,7 +14,7 @@ export default function EditExpense({ route }) {
 
   const important = route.params.important;
 
-  //add data into ImportantExpenses collection if pressed mark as important button
+  //add data into ImportantExpenses screen if pressed mark as important button
   const switchImportant = () => {
     //if important is true, means it is already important
     {
@@ -25,9 +25,7 @@ export default function EditExpense({ route }) {
     }
     navigation.goBack();
   };
-
-  //distinguish which page is the expense button clicked from
-  //it delete data from different databases
+  //delete from database
   const onDelete = () => {
     deleteFromDB(route.params.key);
     navigation.goBack();
@@ -38,7 +36,7 @@ export default function EditExpense({ route }) {
     if (important) {
       string = "unimportant";
     }
-    //Alerts shown to the user when deleting and editing expense items
+    //Alerts shown to the user when mark as important
     Alert.alert(
       "Important",
       "Are you sure you want to mark this as " + string,
@@ -51,7 +49,7 @@ export default function EditExpense({ route }) {
       ]
     );
   };
-
+  //Alerts shown to the user when try to delete
   const markAsDelete = () => {
     Alert.alert("Delete", "Are you sure you want to delete this?", [
       {

@@ -7,13 +7,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { firestore } from "../../firebase/firebase-setup.js";
 export default function AllExpenses() {
   const [importants, setImportants] = useState([]);
-
-  //get data from ImportantExpenses collection and mark data as importants
-  // useEffect(()=>{
-  //   onSnapshot(collection(db,'ImportantExpenses'),(snapshot)=>{
-  //     setImportants(snapshot.docs.map((doc)=>({...doc.data(),id:doc.id})))
-  //   },[]);
-  // })
+  //only show important expenses-when important is set to true
   useEffect(() => {
     onSnapshot(collection(firestore, "Expenses"), (querySnapshot) => {
       if (querySnapshot.empty) {

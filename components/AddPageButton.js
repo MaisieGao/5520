@@ -2,7 +2,7 @@ import { View, StyleSheet, Pressable, Text } from "react-native";
 import helperForColor from "../helperForColor";
 import React, { useState } from "react";
 export default function AddPageButton({ onPress, button }) {
-  const [text, setText] = useState("");
+
  
 
   return (
