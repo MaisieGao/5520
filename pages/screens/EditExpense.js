@@ -71,7 +71,7 @@ export default function EditExpense({ route }) {
 
         <DeleteButton
           onPress={markAsDelete}
-          button={"delete"}
+          button={"Delete"}
         />
       </View>
     </View>
