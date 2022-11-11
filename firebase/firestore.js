@@ -1,9 +1,13 @@
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore"; 
-import{firestore} from './firebase-setup'
+import GoalDetail from "../components/GoalDetail";
+import{auth, firestore} from './firebase-setup'
 
 export const writeToDatabase = async(data) =>{
     try{
-        await addDoc(collection(firestore,'Goals'),data)
+        const docRef = await addDoc(collection(firestore,'Goals'),{
+            ...data,
+            user: auth.currentUser.uid
+        })
     }catch(err){
         console.log(err)
     }

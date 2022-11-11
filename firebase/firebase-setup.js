@@ -2,7 +2,8 @@
 
 import { initializeApp } from "firebase/app";
 import {  getFirestore } from "firebase/firestore";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { initializeAuth , getReactNativePersistence} from 'firebase/auth'
 
 const firebaseConfig = {
     apiKey: "AIzaSyDM4duh7k7tJ3gXvSn-jR2B3wFqAKXVQUA",
@@ -18,8 +19,10 @@ const firebaseConfig = {
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
-console.log(app)
 export const firestore = getFirestore(app);
+export const auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(AsyncStorage)
+    });
 
 //collection->document->data
 //collections can't be nested

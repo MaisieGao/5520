@@ -5,14 +5,15 @@ import Header from './Header';
 import Input from './Input';
 import GoalItem from './GoalItem';
 import { deleteFromDB, writeToDatabase } from '../firebase/firestore';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot,query,where } from 'firebase/firestore';
 import {firestore} from '../firebase/firebase-setup.js';
-
+import { auth } from '../firebase/firebase-setup'
 
 export default function Home({navigation}) {
   const [goals,setGoals]=useState([]);
   useEffect(()=>{
-    onSnapshot(collection(firestore, "Goals"), (querySnapshot) => {
+    const unsubscribe = onSnapshot(query(collection(firestore, "Goals"), where("user", "==", auth.currentUser.uid)), 
+    (querySnapshot) => {
 if(querySnapshot.empty){
   setGoals([]);
   return;
@@ -23,8 +24,14 @@ setGoals(
     data={...data,key:snapDoc.id};
     return data;
   })
-)
-      })
+)},
+    (err) =>{
+      console.log(err)
+    }
+      );
+      return () => {
+        unsubscribe();
+      }
   },[])
   //goals=[{text:'learn',key:'random_number'}]
   const [modalVisible, setModalVisible]=useState(false);
