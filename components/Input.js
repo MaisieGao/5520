@@ -1,9 +1,12 @@
 import {View, TextInput, Button, StyleSheet, Modal, Image} from 'react-native'
 import React,{useState} from 'react' 
+import ImageManager from './ImageManager'
 
 export default function Input({onAdd, modal, onCancel}){
     const [text, setText] = useState("")
-
+    const imageHandler = (uri) =>{
+        console.log('uri',uri)
+    }
     return(
         <Modal visible={modal}>
             <View style={styles.container}>
@@ -13,6 +16,7 @@ export default function Input({onAdd, modal, onCancel}){
                 uri: 'https://cdn-icons-png.flaticon.com/512/2617/2617812.png',
                 }}
             />
+            <ImageManager imageManager={imageHandler}/>
                 <TextInput
                 style={styles.input}
                 onChangeText={(newText)=>{setText(newText)}}
@@ -24,7 +28,7 @@ export default function Input({onAdd, modal, onCancel}){
                 <Button
                     title='Confirm'
                     onPress={()=>{
-                        onAdd(text)
+                        onAdd({text,uri})
                         setText('')
                         
                     }}
