@@ -1,8 +1,28 @@
 import { View, Text,FlatList, Button } from 'react-native'
 import React,{useEffect, useState} from 'react'
+import { getDownloadURL, ref } from 'firebase/storage';
+import { storage } from '../firebase/firebase-setup';
 
 export default function GoalDetail({route,navigation}) {
   const [user,setUser] = useState([])
+  const [imageUrl,setImageUrl] = useState("")
+  const goal = route.params.goalObject;
+  useEffect(()=>{
+    const downloadUrl = async () =>{
+      try{
+      if (goal.uri){
+        const reference = ref(storage,goal.uri)
+        const downimageURL = await getDownloadURL(reference)
+        setImageUrl(downimageURL)
+      }
+    }
+  catch(err){
+    console.log(err)
+  }}
+    downloadUrl()
+  
+  },[])
+  
   //in useEffect, the function can only return a cleanup function
   //not a promise
   //so we define a seperate function inside useEffect
@@ -51,6 +71,7 @@ export default function GoalDetail({route,navigation}) {
   return (
     <View>
       <Text>You are viewing the details of {route.params.goalObject.text}</Text>
+      <Image source={{uri:imageUrl}}/>
       <Button title='add user' onPress={addUser}></Button>
       <FlatList data={user} 
       //a function that calls each user

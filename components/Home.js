@@ -8,7 +8,7 @@ import { deleteFromDB, writeToDatabase } from '../firebase/firestore';
 import { collection, onSnapshot,query,where } from 'firebase/firestore';
 import {firestore} from '../firebase/firebase-setup.js';
 import { auth } from '../firebase/firebase-setup'
-
+import { uploadBytes,ref } from 'firebase/storage';
 export default function Home({navigation}) {
   const [goals,setGoals]=useState([]);
   useEffect(()=>{
@@ -38,20 +38,45 @@ setGoals(
   const name="My App";
   const makeModalVisible=()=>{setModalVisible(true)}
   const makeModalInvisible=()=>{setModalVisible(false)}
-
+  const getImage = async (uri) =>{
+    try{
+      const response = await fetch(uri)
+      if (!response.ok){//status code is 200-299
+        //the fetch doesn't reject the promise even the data is not found
+        //so we have to do it manually
+        throw new Error('the fetch request failed')
+      }
+      //we have some data that is our image
+      const blob = await response.blob()
+      return blob;
+    }catch(err){
+      console.log(err)
+    }
+  }
 
   function itemPressed(goal){
     console.log("item pressed");
     navigation.navigate('GoalDetails', {goalObject:goal});
   }
 
-  const onTextAdd =function(newText){
-    const newGoal={text:newText,key:Math.random()};
-    writeToDatabase({text:newText});
-    // setGoals((prevgoals)=>{return [...prevgoals,newGoal];})
-    console.log(newText)
+  const onTextAdd = async function(newObj){
+   try{
+     const uri = newObj.uri;
+    //from newObj.url -> fetch ->blob
+    if(uri){
+      const imageBlob = await getImage(newObj.uri)
+      const imageName = uri.substring(uri.lastIndexOf('/') + 1);
+      const imageRef = await ref(storage, `images/${imageName}`)
+      const uploadResult = await uploadBytes(imageRef, imageBlob)
+      //replace the uri with reference to the storage location
+      newObj.uri = uploadResult.metadata.fullPath
+    }
+    await writeToDatabase(newObj)
+  }catch(err){
+    console.log(err)
+  }
     setModalVisible(false)
-    console.log(goals)  
+  
   }
 
 function onDelete(deletedKey){
