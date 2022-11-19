@@ -4,8 +4,10 @@ import ImageManager from './ImageManager'
 
 export default function Input({onAdd, modal, onCancel}){
     const [text, setText] = useState("")
+    const [uri, setUri] = useState("");
     const imageHandler = (uri) =>{
         console.log('uri',uri)
+        setUri(uri);
     }
     return(
         <Modal visible={modal}>
