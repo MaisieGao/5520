@@ -6,7 +6,7 @@ export default function Input({onAdd, modal, onCancel}){
     const [text, setText] = useState("")
     const [uri, setUri] = useState("");
     const imageHandler = (uri) =>{
-        console.log('uri',uri)
+        console.log('input uri',uri)
         setUri(uri);
     }
     return(
@@ -18,7 +18,7 @@ export default function Input({onAdd, modal, onCancel}){
                 uri: 'https://cdn-icons-png.flaticon.com/512/2617/2617812.png',
                 }}
             />
-            <ImageManager imageManager={imageHandler}/>
+            <ImageManager imageHandler={imageHandler}/>
                 <TextInput
                 style={styles.input}
                 onChangeText={(newText)=>{setText(newText)}}

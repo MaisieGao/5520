@@ -2,7 +2,7 @@ import { View, Text,Image, Button, ImagePickerIOS } from 'react-native'
 import React, { useState } from 'react'
 
 import * as ImagePicker from 'expo-image-picker';
-export default function ImageManager({imageManager}) {
+export default function ImageManager({imageHandler}) {
     const [permissionInfo, requestPermission] = ImagePicker.useCameraPermissions();
     const [imageUrl, setImageUrl] = useState('')
     const verifyPermission = async() =>{
@@ -28,7 +28,7 @@ export default function ImageManager({imageManager}) {
             // }
             setImageUrl(result.uri)
             //call the function
-            imageManager(result.uri)
+            imageHandler(result.uri)
         }catch(err){
             console.log(err)
         }
@@ -36,7 +36,11 @@ export default function ImageManager({imageManager}) {
   return (
     <View>
       <Button title='Take an image' onPress={takeImageHandler}/>
-      {imageUrl?<Image source={{url: imageUrl}}/>:<Text>No image Yet</Text>}
+      {imageUrl ? (
+        <Image source={{ uri: imageUrl }} style={{ width: 200, height: 200 }} />
+      ) : (
+        <Text> No image yet!</Text>
+      )}
     </View>
   )
 }
