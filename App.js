@@ -3,6 +3,7 @@ import GoalDetail from './components/GoalDetail';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Profile from './components/Profile';
+import Map from './components/Map';
 import { Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -83,7 +84,7 @@ options={({ route,navigation }) => {
     title: route.params.goalObject.text, 
     headerRight: rightButton
   }}}/>
-    
+    <Stack.Screen name="Map" component={Map} />
         
     </Stack.Navigator>
 )}
